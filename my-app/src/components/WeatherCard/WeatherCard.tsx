@@ -1,10 +1,5 @@
-// WeatherCard.tsx
 import React from 'react';
 import { Card, CardContent, Typography, Box } from '@mui/material';
-import AcUnitIcon from '@mui/icons-material/Cloud';
-import WbSunnyIcon from '@mui/icons-material/WbSunny';
-import RainIcon from '@mui/icons-material/Grain'; 
-import './WeatherCard.scss';
 import WeatherIcon from '../WeatherIcon/WeatherIcon';
 
 interface WeatherCardProps {
@@ -22,55 +17,79 @@ const WeatherCard: React.FC<WeatherCardProps> = ({
   realFeel,
   temperature,
 }) => {
-
   const getWeatherTypeFromTemp = (tempCelsius: number) => {
-  if (tempCelsius <= 20) return 'cold';
-  if (tempCelsius <= 30) return 'mild';
-  return 'hot';
-}
-const weatherType = getWeatherTypeFromTemp(temperature);
+    if (tempCelsius <= 20) return 'cold';
+    if (tempCelsius <= 30) return 'mild';
+    return 'hot';
+  };
+
+  const weatherCondition = getWeatherTypeFromTemp(temperature);
 
   return (
-    <Card className="weather-card">
-      <CardContent className="weather-card__content">
-        <Box className="weather-card__header">
-          <Box className="weather-card__location">
-            <Typography variant="h4" className="weather-card__city">
+    <Card
+      sx={{
+        width: 365,
+        height: 250,
+        borderRadius: 3,
+        boxShadow: 3,
+        bgcolor: '#f8f9fa',
+        direction: 'rtl',
+      }}
+    >
+      <CardContent sx={{ p: 3 }}>
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'flex-start',
+            mb: 4.5,
+          }}
+        >
+          <Box sx={{ textAlign: 'right' }}>
+            <Typography variant="h5" fontWeight="bold" color="text.primary">
               {city}
             </Typography>
-            <Typography variant="body1" className="weather-card__season">
+            <Typography variant="body1" color="text.secondary">
               {season}
             </Typography>
           </Box>
-          <Box className="weather-card__icon">
-            <WeatherIcon weatherType={weatherType} />
+
+          <Box sx={{ fontSize: 40 }}>
+            <WeatherIcon weatherType={weatherCondition} />
           </Box>
         </Box>
 
-        <Box className="weather-card__stats">
-          <Box className="weather-card__stat">
-            <Typography variant="subtitle1" className="weather-card__label">
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            gap: 2,
+            mt: 6.5,
+          }}
+        >
+          <Box sx={{ textAlign: 'center', flex: 1 }}>
+            <Typography variant="body2" color="text.secondary">
               טמפ' נמדדת
             </Typography>
-            <Typography variant="h3" className="weather-card__value">
+            <Typography variant="h5">
               {temperature}°C
             </Typography>
           </Box>
-          
-          <Box className="weather-card__stat">
-            <Typography variant="subtitle1" className="weather-card__label">
+
+          <Box sx={{ textAlign: 'center', flex: 1 }}>
+            <Typography variant="body2" color="text.secondary">
               טמפ' מורגשת
             </Typography>
-            <Typography variant="h3" className="weather-card__value">
+            <Typography variant="h5">
               {realFeel}°C
             </Typography>
           </Box>
-          
-          <Box className="weather-card__stat">
-            <Typography variant="subtitle1" className="weather-card__label">
+
+          <Box sx={{ textAlign: 'center', flex: 1 }}>
+            <Typography variant="body2" color="text.secondary">
               לחות
             </Typography>
-            <Typography variant="h3" className="weather-card__value">
+            <Typography variant="h5">
               {humidity}%
             </Typography>
           </Box>
